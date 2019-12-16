@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  shopping_cart_backend:
+    image: dmcvicar/shopping_cart_backend
+    build: shopping_cart_backend
+    ports:
+      - "8000:8000"
+    command: runserver 0.0.0.0:8000
