@@ -1,9 +1,20 @@
 version: '3'
 
 services:
-  shopping_cart_backend:
+  shopping-cart-backend:
     image: dmcvicar/shopping_cart_backend
     build: shopping_cart_backend
+    volumes:
+      - ./shopping_cart_backend/shopping_cart/shopping_cart_core:/var/shopping-cart/shopping-cart-core
     ports:
       - "8000:8000"
     command: runserver 0.0.0.0:8000
+
+  shopping-cart-frontend:
+    image: dmcvicar/shopping_cart_frontend
+    build: shopping_cart_frontend
+    volumes:
+      - ./shopping_cart_frontend/shopping-cart/src:/var/shopping-cart/src
+    ports:
+      - "3000:3000"
+    command: start

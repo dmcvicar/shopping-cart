@@ -24,5 +24,5 @@ router.register(r'cart-item', views.CartItemViewSet)
 router.register(r'item', views.ItemViewSet)
 
 urlpatterns = [
-    url(r'^', include(router.urls)),
+    url(r'^api/', include(router.urls)),
 ]

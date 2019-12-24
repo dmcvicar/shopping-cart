@@ -1,12 +1,12 @@
 FROM python:3.8.0-buster
 
 WORKDIR /var/shopping-cart
-COPY requirements.txt requirements.txt
-COPY shopping_cart shopping_cart
+COPY requirements.txt .
 
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-RUN python shopping_cart/manage.py migrate
+ADD shopping_cart .
+RUN python manage.py migrate
 
-ENTRYPOINT ["python", "shopping_cart/manage.py"]
+ENTRYPOINT ["python", "manage.py"]

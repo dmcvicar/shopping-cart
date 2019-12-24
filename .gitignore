@@ -127,3 +127,24 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+shopping_cart_frontend/shopping-cart/node_modules
+shopping_cart_frontend/shopping-cart/*.pnp
+shopping_cart_frontend/shopping-cart/*.pnp.js
+
+# testing
+shopping_cart_frontend/shopping-cart/coverage
+
+# production
+shopping_cart_frontend/shopping-cart/build
+
+# misc
+shopping_cart_frontend/shopping-cart/*.DS_Store
+shopping_cart_frontend/shopping-cart/*.env.local
+shopping_cart_frontend/shopping-cart/*.env.development.local
+shopping_cart_frontend/shopping-cart/*.env.test.local
+shopping_cart_frontend/shopping-cart/*.env.production.local
+
+shopping_cart_frontend/shopping-cart/*npm-debug.log*
+shopping_cart_frontend/shopping-cart/*yarn-debug.log*
+shopping_cart_frontend/shopping-cart/*yarn-error.log*
