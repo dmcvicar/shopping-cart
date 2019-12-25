@@ -25,7 +25,7 @@ SECRET_KEY = '*x5*%@g$r&!*gz$2=0jqkn+x9=*x*s1ob_58&19_z*wcha*9m2'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['shopping-cart-backend']
+ALLOWED_HOSTS = ['shopping-cart-backend', 'localhost']
 
 
 # Application definition

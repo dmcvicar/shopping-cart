@@ -15,6 +15,7 @@ services:
     build: shopping_cart_frontend
     volumes:
       - ./shopping_cart_frontend/shopping-cart/src:/var/shopping-cart/src
+      - ./shopping_cart_frontend/shopping-cart/public:/var/shopping-cart/public
     ports:
       - "3000:3000"
     command: start

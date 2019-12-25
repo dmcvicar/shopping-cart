@@ -12,7 +12,7 @@ def create_shop_data(apps, schema_editor):
 
     Item.objects.create(
         name="Tesla Cybertruck",
-        description="BETTER UTILITY THAN A TRUCK WITH MORE PERFORMANCE THAN A SPORTS CAR",
+        description="Better utility than a truck with more performance than a sports car",
         price=39995.0,
         thumbnail_key='cybertruck'
     )
@@ -23,7 +23,7 @@ def create_shop_data(apps, schema_editor):
         thumbnail_key='hdmi'
     )
     Item.objects.create(
-        name="Maruchan Instant Ramen, Chicken",
+        name="Maruchan Instant Ramen (Chicken)",
         description="Delicious, nutritious Ramen. Just what the doctor ordered.",
         price=0.99,
         thumbnail_key='ramen'
