@@ -2,16 +2,8 @@
 from django.db import models
 
 
-class Cart(models.Model):
-    """
-    Cart allows for the grouping of CartItems through a foreign key.
-    """
-    pass
-
-
 class CartItem(models.Model):
     """ CartItem describes an Item that's been added to a cart """
-    cart = models.ForeignKey("shopping_cart_core.Cart", on_delete=models.CASCADE)
     item = models.ForeignKey("shopping_cart_core.Item", on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField()
 

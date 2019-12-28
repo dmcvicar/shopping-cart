@@ -5,17 +5,8 @@ from django.db import migrations
 
 def create_shop_data(apps, schema_editor):
     """ creates some fake shop data for use in the application """
-    Cart = apps.get_model('shopping_cart_core', 'Cart')
     Item = apps.get_model('shopping_cart_core', 'Item')
 
-    Cart.objects.create()
-
-    Item.objects.create(
-        name="Tesla Cybertruck",
-        description="Better utility than a truck with more performance than a sports car",
-        price=39995.0,
-        thumbnail_key='cybertruck'
-    )
     Item.objects.create(
         name="HDMI Cable",
         description="Just a regular HDMI cable.",
@@ -39,6 +30,12 @@ def create_shop_data(apps, schema_editor):
         description="Fully-featured for home and on-the-go gaming.",
         price=299.99,
         thumbnail_key='switch'
+    )
+    Item.objects.create(
+        name="Tesla Cybertruck",
+        description="Better utility than a truck with more performance than a sports car",
+        price=39995.0,
+        thumbnail_key='cybertruck'
     )
     Item.objects.create(
         name="Apple iPhone 11 Pro",

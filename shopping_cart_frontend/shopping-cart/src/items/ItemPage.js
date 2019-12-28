@@ -10,22 +10,8 @@ import Button from 'react-bootstrap/Button'
 
 class ItemPage extends React.Component {
 
-  constructor(props) {
-    super(props)
-    this.state = {items: []}
-  }
-
-  componentDidMount() {
-    fetch('api/item')
-    .then(res => res.json())
-    .then((data) => {
-      this.setState({items: data})
-    })
-    .catch(console.log);
-  }
-
   render() {
-    const cards = this.state.items.map(item => (
+    const cards = this.props.items.map(item => (
       <Col lg={4} key={item.id} className="itemcolumn">
         <Card className="h-100">
           <Card.Img variant="top" src={item.thumbnail_key + ".jpg"}/>
@@ -39,7 +25,7 @@ class ItemPage extends React.Component {
       </Col>
     ));
     return (
-      <Container>
+      <Container className="mainapp">
         <Row>
           {cards}
         </Row>

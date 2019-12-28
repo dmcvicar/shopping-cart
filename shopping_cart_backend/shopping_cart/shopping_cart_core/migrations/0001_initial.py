@@ -13,12 +13,6 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Cart',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-            ],
-        ),
-        migrations.CreateModel(
             name='Item',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
@@ -33,7 +27,6 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('quantity', models.PositiveIntegerField()),
-                ('cart', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='shopping_cart_core.Cart')),
                 ('item', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='shopping_cart_core.Item')),
             ],
         ),

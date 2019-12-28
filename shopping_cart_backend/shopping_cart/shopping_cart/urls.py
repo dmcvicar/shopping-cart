@@ -19,7 +19,6 @@ from rest_framework import routers
 from shopping_cart_core import views
 
 router = routers.DefaultRouter(trailing_slash=False)
-router.register(r'cart', views.CartViewSet)
 router.register(r'cart-item', views.CartItemViewSet)
 router.register(r'item', views.ItemViewSet)
 

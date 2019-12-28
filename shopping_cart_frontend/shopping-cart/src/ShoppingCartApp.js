@@ -10,7 +10,7 @@ import ItemPage from './items/ItemPage'
 class ShoppingCartApp extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {currentPage: 'items', cart: {}, cartItemCount: 0}
+    this.state = {currentPage: 'items', items: [], cart: {}, cartItemCount: 0}
     this.setPage = this.setPage.bind(this);
     this.addToCart = this.addToCart.bind(this);
     this.removeFromCart = this.removeFromCart.bind(this);
@@ -19,15 +19,26 @@ class ShoppingCartApp extends React.Component {
   componentDidMount() {
     let cart = this.state.cart
     let cartItemCount = this.state.cartItemCount
+    let items = this.state.items
+    fetch('api/item')
+    .then(res => res.json())
+    .then((data) => {
+      items = data;
+    })
+    .catch(console.log);
     fetch('api/cart-item')
     .then(res => res.json())
     .then((data) => {
-      console.log(data)
       data.forEach((cartItem) => {
         cart[cartItem.id] = {id: cartItem.id, quantity: cartItem.quantity}
         cartItemCount += cartItem.quantity
       })
-      this.setState({currentPage: this.state.currentPage, cart: cart, cartItemCount: cartItemCount})
+      this.setState({
+        currentPage: this.state.currentPage,
+        items: items,
+        cart: cart,
+        cartItemCount: cartItemCount
+      })
     })
     .catch(console.log);
   }
@@ -58,25 +69,36 @@ class ShoppingCartApp extends React.Component {
     this.setState({currentPage: this.state.currentPage, cart: cart, cartItemCount: cartItemCount})
   }
 
-  removeFromCart(itemId) {
-
+  removeFromCart(cartItemId, itemId) {
+    fetch('/api/cart-item/' + cartItemId, {method: 'DELETE'})
+    let cart = this.state.cart;
+    let cartItemCount = this.state.cartItemCount;
+    cartItemCount = cartItemCount - cart[itemId].quantity;
+    delete cart[itemId];
+    this.setState({currentPage: this.state.currentPage,
+                   cart: cart,
+                   cartItemCount: cartItemCount,
+                   items: this.state.items})
   }
 
   setPage(e) {
-    this.setState({currentPage: e, cart: this.state.cart});
+    this.setState({currentPage: e,
+                   cart: this.state.cart,
+                   cartItemCount: this.state.cartItemCount,
+                   items: this.state.items});
   }
 
   render() {
     let page;
     if (this.state.currentPage === 'items') {
-      page = <ItemPage addToCart={this.addToCart}/>
+      page = <ItemPage addToCart={this.addToCart} items={this.state.items}/>
     } else {
-      page = <CartPage removeFromCart={this.removeFromCart}/>
+      page = <CartPage removeFromCart={this.removeFromCart} cart={this.state.cart} items={this.state.items}/>
     }
     return (
       <div>
-        <Navbar className="navbar" bg="dark" variant="dark">
-          <Navbar.Brand>Shopping Cart</Navbar.Brand>
+        <Navbar fixed="top" className="navbar" bg="dark" variant="dark">
+          <Navbar.Brand>Blamazon</Navbar.Brand>
           <Nav activeKey="items" onSelect={this.setPage}>
             <Nav.Item>
               <Nav.Link eventKey='items'>Items</Nav.Link>
