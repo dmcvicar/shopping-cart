@@ -14,6 +14,9 @@ class ShoppingCartApp extends React.Component {
     this.setPage = this.setPage.bind(this);
     this.addToCart = this.addToCart.bind(this);
     this.removeFromCart = this.removeFromCart.bind(this);
+    this.adjustCartQuantity = this.adjustCartQuantity.bind(this);
+    this.incrementCartQuantity = this.incrementCartQuantity.bind(this);
+    this.decrementCartQuantity = this.decrementCartQuantity.bind(this);
   }
 
   componentDidMount() {
@@ -66,7 +69,10 @@ class ShoppingCartApp extends React.Component {
       cart[itemId].quantity++;
     }
     cartItemCount++;
-    this.setState({currentPage: this.state.currentPage, cart: cart, cartItemCount: cartItemCount})
+    this.setState({currentPage: this.state.currentPage,
+                   cart: cart,
+                   cartItemCount: cartItemCount,
+                   items: this.state.items})
   }
 
   removeFromCart(cartItemId, itemId) {
@@ -81,6 +87,30 @@ class ShoppingCartApp extends React.Component {
                    items: this.state.items})
   }
 
+  adjustCartQuantity(itemId, delta) {
+    let cart = this.state.cart;
+    let cartItemCount = this.state.cartItemCount;
+    fetch('/api/cart-item/' + this.state.cart[itemId].id, {
+      method: 'PATCH',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({quantity: this.state.cart[itemId].quantity+delta})
+    })
+    cart[itemId].quantity += delta;
+    cartItemCount += delta;
+    this.setState({currentPage: this.state.currentPage,
+                   cart: cart,
+                   cartItemCount: cartItemCount,
+                   items: this.state.items})
+  }
+
+  decrementCartQuantity(itemId) {
+    this.adjustCartQuantity(itemId, -1)
+  }
+
+  incrementCartQuantity(itemId) {
+    this.adjustCartQuantity(itemId, 1)
+  }
+
   setPage(e) {
     this.setState({currentPage: e,
                    cart: this.state.cart,
@@ -93,7 +123,11 @@ class ShoppingCartApp extends React.Component {
     if (this.state.currentPage === 'items') {
       page = <ItemPage addToCart={this.addToCart} items={this.state.items}/>
     } else {
-      page = <CartPage removeFromCart={this.removeFromCart} cart={this.state.cart} items={this.state.items}/>
+      page = <CartPage removeFromCart={this.removeFromCart}
+                       incrementCartQuantity={this.incrementCartQuantity}
+                       decrementCartQuantity={this.decrementCartQuantity}
+                       cart={this.state.cart}
+                       items={this.state.items}/>
     }
     return (
       <div>

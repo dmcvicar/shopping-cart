@@ -25,7 +25,11 @@ class CartPage extends React.Component {
         <tr key={itemId}>
           <td>{item.name}</td>
           <td>${item.price}</td>
-          <td>{this.props.cart[itemId].quantity}</td>
+          <td>
+            <Button disabled={this.props.cart[itemId].quantity <= 1} onClick={() => this.props.decrementCartQuantity(itemId)}>-</Button>
+            {this.props.cart[itemId].quantity}
+            <Button onClick={() => this.props.incrementCartQuantity(itemId)}>+</Button>
+          </td>
           <td><Button onClick={() => this.props.removeFromCart(this.props.cart[itemId].id, itemId)}>Remove</Button></td>
         </tr>
       );
